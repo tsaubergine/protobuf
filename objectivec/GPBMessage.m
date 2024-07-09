@@ -747,6 +747,7 @@ static void DecodeSingleValueFromInputStream(GPBExtensionDescriptor *extension,
           // For MessageSet fields the message length will have already been
           // read.
           [targetMessage mergeFromCodedInputStream:input extensionRegistry:extensionRegistry];
+          [input checkLastTagWas:0];
         } else {
           [input readMessage:targetMessage extensionRegistry:extensionRegistry];
         }
@@ -1028,6 +1029,7 @@ static GPBUnknownFieldSet *GetOrMakeUnknownFields(GPBMessage *self) {
   if ((self = [self init])) {
     @try {
       [self mergeFromCodedInputStream:input extensionRegistry:extensionRegistry];
+      [input checkLastTagWas:0];
       if (errorPtr) {
         *errorPtr = nil;
       }
@@ -2548,7 +2550,10 @@ static void MergeRepeatedNotPackedFieldFromCodedInputStream(
         return;
       } else {
         if (![self parseUnknownField:input extensionRegistry:extensionRegistry tag:tag]) {
-          // it's an endgroup tag
+          // It's an endgroup tag
+          //
+          // This may or may not be an error. The caller will have to confirm if the endgroup
+          // is valid or if only the end of input was valid.
           return;
         }
       }

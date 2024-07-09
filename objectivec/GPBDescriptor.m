@@ -267,6 +267,10 @@ static NSArray *NewFieldsArrayForHasIndex(int hasIndex, NSArray *allMessageField
                        fields:(NSArray *)fields
                   storageSize:(uint32_t)storageSize
                    wireFormat:(BOOL)wireFormat {
+#if defined(DEBUG) && DEBUG && !defined(NS_BLOCK_ASSERTIONS)
+  // This is also checked by the generator.
+  NSAssert(!wireFormat || fields.count == 0, @"Internal error, MessageSet should not have fields");
+#endif
   if ((self = [super init])) {
     messageClass_ = messageClass;
     messageName_ = [messageName copy];

@@ -10,7 +10,7 @@
 
 #include <atomic>
 
-namespace protos::internal {
+namespace google::protobuf::hpb::internal {
 
 // TODO: Temporary locking api for cross-language
 // concurrency issue around extension api that uses lazy promotion
@@ -26,6 +26,7 @@ using UpbExtensionLocker = UpbExtensionUnlocker (*)(const void*);
 // TODO: Expose as function instead of global.
 extern std::atomic<UpbExtensionLocker> upb_extension_locker_global;
 
-}  // namespace protos::internal
+}  // namespace protobuf
+}  // namespace google::hpb::internal
 
 #endif  // PROTOBUF_HPB_EXTENSION_LOCK_H_

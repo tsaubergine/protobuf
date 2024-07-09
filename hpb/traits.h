@@ -10,12 +10,13 @@
 
 #include <type_traits>
 
-namespace protos::internal {
+namespace google::protobuf::hpb::internal {
 
 template <typename T, typename T2>
 using add_const_if_T_is_const =
     std::conditional_t<std::is_const_v<T>, const T2, T2>;
 
-}  // namespace protos::internal
+}  // namespace protobuf
+}  // namespace google::hpb::internal
 
 #endif  // PROTOBUF_HPB_TRAITS_H_

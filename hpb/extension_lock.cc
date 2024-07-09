@@ -9,8 +9,9 @@
 
 #include <atomic>
 
-namespace protos::internal {
+namespace google::protobuf::hpb::internal {
 
 std::atomic<UpbExtensionLocker> upb_extension_locker_global;
 
-}  // namespace protos::internal
+}  // namespace protobuf
+}  // namespace google::hpb::internal

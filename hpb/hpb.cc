@@ -83,6 +83,10 @@ absl::Status MessageDecodeError(upb_DecodeStatus status, SourceLocation loc
 
 namespace internal {
 
+using ::google::protobuf::hpb::internal::upb_extension_locker_global;
+using ::google::protobuf::hpb::internal::UpbExtensionLocker;
+using ::google::protobuf::hpb::internal::UpbExtensionUnlocker;
+
 upb_ExtensionRegistry* GetUpbExtensions(
     const ExtensionRegistry& extension_registry) {
   return extension_registry.registry_;
